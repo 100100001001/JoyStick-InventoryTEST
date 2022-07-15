@@ -32,6 +32,10 @@ public class InventoryUI : MonoBehaviour
 
         // inventory > onSlotCountChange에 SlotChange 메서드 등록(구독)
         inventory.onSlotCountChange += SlotChange;
+
+        // Inventory > onChangeItem에 RedrawSlotUI 메서드 등록(구독)
+        inventory.onChangeItem += RedrawSlotUI;
+
     }
 
     // inventory의 SlotCount의 값만큼 Slot을 활성화시키는 메서드
@@ -48,6 +52,22 @@ public class InventoryUI : MonoBehaviour
     {
         inventory.SlotCount++;
     }
+
+    // 반복문을 통해 슬롯들을 초기화하고 itmes의 개수만큼 slot을 채워 넣는 메서드
+    private void RedrawSlotUI()
+    {
+        for (int i = 0; i < slots.Length; i++)
+        {
+            slots[i].RemoveSlot();
+        }
+
+        for (int i = 0; i < inventory.items.Count; i++)
+        {
+            slots[i].item = inventory.items[i];
+            slots[i].UpdateSlotUI();
+        }
+    }
+
 
     void Update()
     {

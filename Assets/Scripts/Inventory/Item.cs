@@ -19,9 +19,17 @@ public class Item
     public string itemName;   // 아이템 이름
     public Sprite itemImage;  // 아이템 이미지
 
+    public List<ItemEffect> efts; // 아이템 이펙트 리스트
+
     // 아이템 사용 메서드 : 사용 성공 여부를 반환
-    public bool User()
+    public bool Use()
     {
-        return false;
+        bool isUsed = false;
+        // 반복문을 이용해 efts의 ExecuteRole을 실행
+        foreach (ItemEffect eft in efts)
+        {
+            isUsed = eft.ExecuteRole();
+        }
+        return isUsed;
     }
 }
